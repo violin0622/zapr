@@ -1,2 +1,3 @@
 # zapr
-Yet another logr impelementation for zap. 
+
+Yet another logr implementation for zap.
