@@ -3,10 +3,11 @@ package zapr_test
 import (
 	"context"
 	"fmt"
-	zapr "play-zapr"
 	"testing"
 
 	"go.uber.org/zap"
+
+	zapr "github.com/violin0622/zapr"
 )
 
 func TestValues(t *testing.T) {

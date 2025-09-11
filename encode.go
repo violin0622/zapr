@@ -5,13 +5,14 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var lvlEnc = vLevelEncoder{pool: buffer.NewPool()}
+var defLevelEncoder = vLevelEncoder{pool: buffer.NewPool()}
+var LevelEncoder = defLevelEncoder.encode
 
 type vLevelEncoder struct {
 	pool buffer.Pool
 }
 
-func (e *vLevelEncoder) Encode(l zapcore.Level, pae zapcore.PrimitiveArrayEncoder) {
+func (e *vLevelEncoder) encode(l zapcore.Level, pae zapcore.PrimitiveArrayEncoder) {
 	if l > 0 {
 		pae.AppendString(l.CapitalString()[:4])
 		return
@@ -27,6 +28,6 @@ func (e *vLevelEncoder) Encode(l zapcore.Level, pae zapcore.PrimitiveArrayEncode
 
 type EncoderOption func(*vLevelEncoder)
 
-func NewLevelEncoder(opts ...EncoderOption) vLevelEncoder {
-	return vLevelEncoder{pool: buffer.NewPool()}
+func NewLevelEncoder(opts ...EncoderOption) zapcore.LevelEncoder {
+	return (&vLevelEncoder{pool: buffer.NewPool()}).encode
 }
