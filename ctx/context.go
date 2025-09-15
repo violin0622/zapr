@@ -1,4 +1,4 @@
-package zapr
+package ctx
 
 import (
 	"context"
@@ -30,10 +30,6 @@ func Values(ctx context.Context) []any {
 func WithV(ctx context.Context, v int) context.Context {
 	return context.WithValue(ctx, vkey, V(ctx)+v)
 }
-
-// func WithValuesV(ctx context.Context, v int, fields ...any) context.Context {
-// 	return WithValues(WithV(ctx, v), fields...)
-// }
 
 func V(ctx context.Context) int {
 	if v, ok := ctx.Value(vkey).(int); ok {

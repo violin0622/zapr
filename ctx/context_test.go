@@ -1,4 +1,4 @@
-package zapr_test
+package ctx_test
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 
 	"go.uber.org/zap"
 
-	zapr "github.com/violin0622/zapr"
+	zcx "github.com/violin0622/zapr/ctx"
 )
 
 func TestValues(t *testing.T) {
@@ -27,9 +27,9 @@ func TestValues(t *testing.T) {
 	for i, tc := range testcases {
 		t.Run(fmt.Sprintf(`%d_%s`, i, tc.desc), func(t *testing.T) {
 			ctx := context.Background()
-			ctx = zapr.WithValues(ctx, tc.expect...)
+			ctx = zcx.WithValues(ctx, tc.expect...)
 
-			actual := zapr.Values(ctx)
+			actual := zcx.Values(ctx)
 			if len(actual) != len(tc.expect) {
 				t.Errorf(`expect != actual: %d vs %d`, len(tc.expect), len(actual))
 			}
@@ -62,10 +62,10 @@ func TestV(t *testing.T) {
 	for i, tc := range testcases {
 		t.Run(fmt.Sprintf(`%d_%s`, i, tc.desc), func(t *testing.T) {
 			ctx := context.Background()
-			ctx = zapr.WithV(ctx, tc.stored)
-			ctx = zapr.WithV(ctx, tc.v)
+			ctx = zcx.WithV(ctx, tc.stored)
+			ctx = zcx.WithV(ctx, tc.v)
 
-			actual := zapr.V(ctx)
+			actual := zcx.V(ctx)
 			if actual != tc.expect {
 				t.Errorf(`expect != actual: %d vs %d`, tc.expect, actual)
 			}
